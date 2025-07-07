@@ -1,0 +1,46 @@
+Preparação do Ambiente curso web_acelerate_DIO
+
+# Rust Toolchain
+rustup toolchain install nightly-2023-11-26-86_64-unknown-Linux-gnu
+rustup default nightly-2023-11-26-86_64-unknown-Linux-gnu
+rustup target add wasm32-unknown-unknown
+
+# Diesel and Leptos CLIs
+cargo install diesel_cli --no-default-feature --features postgres
+cargo install cargo-leptos
+
+# Backend Dependecies
+cargo add diesel --features=postgres,uuid
+cargo add diesel-derive-enum --features=postgres
+cargo add rocket --features=json
+cargo add rocket_db_pools --features=diesel_postgres
+cargo add serde --features=derive
+cargo add uuid --features-v4,serde
+
+#Front-end Dependecies
+cargo add wasm-blidgen@0.2.02
+cargo add thaw --git https://github.com/thaw-ui/thaw
+cargo add leptos-use@0.10.4
+cargo add leptos-struct-table@0.0.1
+cargo add icondata@0.3.0
+cargo add request@0.11.25 --no-default-features --features=json
+cargo add serde@1.0.197 -- features=derive
+cargo add strum@0.26.2 --features=derive
+
+#Others
+diesel setup
+diesel migration generate --diff-schema <migration-name> --locked-shema
+cargo leptos new --git https://github.com/leptos-rs/start
+cargo leptos watch --hot-reload
+
+*************** 
+CARGO TOML
+[dependencies]
+diesel = { version = "2.1.4", features = ["postgres", "uuid"]}
+diesel-derive-enum = { version = "2.1.0", feature = ["postgres"]}
+rocket = { version = "0.5.0", features = ["json"]}
+rocket_db_pools = { version = "0.1.0", features = ["diesel_postgres"]}
+serde = { version = "1.0.197", features = ["derive"]}
+uuid = { version = "1.7.0", features = ["v7", "v4", "serde"]}
+
+
